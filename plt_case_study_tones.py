@@ -1,5 +1,5 @@
 
-from resampling_exp import oversampling_experiment
+from resampling_exp import run_experiment
 import numpy as np
 import matplotlib.pyplot as plt
 import os
