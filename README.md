@@ -23,7 +23,7 @@ python3 resampling_exp.py --exp_no 0 --model_paths 'Proteus_Tone_Packs/Selection
 python3 resampling_exp.py --exp_no 1 --model_paths 'AIDA-X/*.json' --log_results
 python3 resampling_exp.py --exp_no 2 --model_paths Proteus_Tone_Packs/HighGain/MesaMiniRec_HighGain_DirectOut.json --log_results
 python3 resampling_exp.py --exp_no 3 --model_paths Proteus_Tone_Packs/HighGain/MesaMiniRec_HighGain_DirectOut.json --log_results
-python3 resampling_exp.py --exp_no 3 --model_paths 'Proteus_Tone_Packs/HighGain/*.json' --log_results
+python3 resampling_exp.py --exp_no 4 --model_paths 'Proteus_Tone_Packs/HighGain/*.json' --log_results
 ```
 
 #### Generating plots
