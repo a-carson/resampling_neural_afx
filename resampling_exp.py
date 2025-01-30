@@ -161,9 +161,9 @@ def run_experiment(model_filename: str,
 
 parser = ArgumentParser()
 parser.add_argument('--log_results', action='store_true', help='Save results as csv')
-parser.add_argument('--exp_no', type=int, default=1)
+parser.add_argument('--exp_no', type=int, default=0)
 parser.add_argument('-L', type=int, default=-1)
-parser.add_argument('--model_paths', type=str, default='Proteus_Tone_Packs/Selection/*.json')
+parser.add_argument('--model_paths', type=str, default='Proteus_Tone_Packs/*.json')
 
 if __name__ == '__main__':
     args = parser.parse_args()
