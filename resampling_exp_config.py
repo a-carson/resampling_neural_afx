@@ -4,6 +4,19 @@ from filters import Resampler, MultiStageResampler, Kaiser, Remez, \
     HalfbandIIR, HalfbandFIR, Lagrange, CIC, HSF
 
 def config(id, pbr=0.5, sba=120, override_L=None):
+    '''
+
+    :param id: experiment ID:
+            0: Training rate Fs = 44.1kHz, model rate Fs = 48kHz (Sec. V-A in paper)
+            1: Training rate Fs = 48kHz, model rate Fs = 44.1kHz (Sec. V-B in paper)
+            2: Training rate Fs = 44.1kHz, oversampling 8x. Comparison against baseline Linterp+CIC method. (Sec. VI-B in paper)
+            3: As 2) but with cross correlation experiment (see Table III in paper)
+            4: Training rate Fs = 44.1kHz, oversampling by a factor of L (set through override_L) (Sec. VI-C in paper)
+    :param pbr: pass-band ripple [dB]
+    :param sba: stop-band attenuation [dB]
+    :param override_L:  oversampling factor for exp 4
+    :return: config dict of L, M, sample rates and methods
+    '''
 
     if id == 0:
 

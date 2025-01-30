@@ -1,0 +1,16 @@
+name: resampling_neural_afx
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - flax==0.10.2
+      - matlabengine==24.2.1
+      - matplotlib==3.9.0
+      - pandas==2.2.2
+      - pip-chill==1.0.3
+
+
+
+

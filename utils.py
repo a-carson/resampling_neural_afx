@@ -1,26 +1,23 @@
 import warnings
-
 import numpy as np
 from typing import Dict, Tuple
 import json
 import jax.numpy as jnp
 import scipy
 from jax import Array, jit
-import math
-from jax.random import PRNGKey
 import os
 import jax
-import flax.linen as nn
 jax.config.update("jax_enable_x64", True)
-from librosa import A_weighting
 from argparse import Namespace
-import matlab.engine
-eng = matlab.engine.start_matlab()
-os.getcwd()
-print(os.path.dirname(__file__))
 
-
-BASE_PATH, _ = os.path.split(os.path.realpath(__file__))
+USE_MATLAB = True
+if USE_MATLAB:
+    import matlab.engine
+    eng = matlab.engine.start_matlab()
+    MATLAB_PATH = f'{os.path.dirname(__file__)}/dafx24/metrics'
+    eng.cd(MATLAB_PATH, nargout=0)
+else:
+    warnings.warn('MATLAB path not set, skipping NMR calculation')
 
 def wavread_float32(filename):
     sample_rate, audio = scipy.io.wavfile.read(filename)
@@ -315,12 +312,6 @@ def snr_dB(sig: Array, noise: Array):
 
 def get_srna_and_nmr(sig, sig_bl, f0, sr):
 
-    MATLAB_PATH = f'{os.path.dirname(__file__)}/MATLAB/dafx24/metrics'
-    if os.path.exists(MATLAB_PATH):
-        eng.cd(MATLAB_PATH, nargout=0)
-    else:
-        warnings.warn('MATLAB path not set, skipping NMR calculation')
-
     Y_bl = cheb_fft(sig_bl)
     Y = cheb_fft(sig)
     f0_trunc = np.floor(f0).astype(int)
@@ -329,7 +320,7 @@ def get_srna_and_nmr(sig, sig_bl, f0, sr):
 
     Y_bl *= gain_adjust
     sig_bl *= gain_adjust
-    if os.path.exists(MATLAB_PATH):
+    if USE_MATLAB:
         nmr = eng.calc_nmr(np.expand_dims(np.array(sig), 1),
                            np.expand_dims(np.array(sig_bl), 1),
                            float(sr), float(64),

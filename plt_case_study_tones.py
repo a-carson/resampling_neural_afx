@@ -17,10 +17,10 @@ dur = 5.5
 # unique config --------------------
 if args.exp_no == 0:
     f0 = 27.5
-    model_paths = 'Proteus_Tone_Packs/RockmanXPR_HighGain.json'
+    model_paths = 'Proteus_Tone_Packs/Selection/RockmanXPR_HighGain.json'
 elif args.exp_no == 2:
     f0 = 4186
-    model_paths = 'Proteus_Tone_Packs/MesaMiniRec_HighGain_DirectOut.json'
+    model_paths = 'Proteus_Tone_Packs/Selection/MesaMiniRec_HighGain_DirectOut.json'
 cfg = config(args.exp_no)
 L = cfg['L']
 M = cfg['M']

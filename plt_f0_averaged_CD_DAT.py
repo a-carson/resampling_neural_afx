@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import scipy.signal
 from glob import glob
 import matplotlib.colors as mcolors
+from argparse import ArgumentParser
 
 ylims = {
     'ESR': [-200, 40],
@@ -23,16 +24,21 @@ ax_dict = {
 
 metrics = ['ESR', 'ASR', 'MESR', 'NMR']
 
-L = 160
-if L == 160:
+parser = ArgumentParser()
+parser.add_argument('--exp_no', type=int, default=0)
+args = parser.parse_args()
+
+if args.exp_no == 0:
     exp_dir = 'results/L=160_M=147_20250122_153758'
     custom_order = ['NB-Kaiser', 'NB-Remez', 'HB-IIR+WB-Kaiser', 'HB-IIR+WB-Remez', 'LIDL', 'CIDL', 'naive', 'base']
     relace_idl_with_edl = False
+    L = 160
     M = 147
-elif L == 147:
+elif args.exp_no == 1:
     exp_dir = 'results/L=147_M=160_20250122_183322'
     custom_order = ['NB-Kaiser', 'NB-Remez', 'HB-IIR+WB-Kaiser', 'HB-IIR+WB-Remez', 'LIDL', 'CIDL', 'naive', 'base']
     relace_idl_with_edl = True
+    L = 147
     M = 160
 
 

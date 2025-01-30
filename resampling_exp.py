@@ -161,9 +161,14 @@ def run_experiment(model_filename: str,
 
 parser = ArgumentParser()
 parser.add_argument('--log_results', action='store_true', help='Save results as csv')
-parser.add_argument('--exp_no', type=int, default=0)
+parser.add_argument('--exp_no', type=int, default=0, help=
+            '0: Training rate Fs = 44.1kHz, model rate Fs = 48kHz (Sec. V-A in paper). '
+            '1: Training rate Fs = 48kHz, model rate Fs = 44.1kHz (Sec. V-B in paper). '
+            '2: Training rate Fs = 44.1kHz, oversampling 8x, comparison against baseline Linterp+CIC method. (Sec. VI-B in paper). '
+            '3: As 2) but with cross correlation experiment (see Table III in paper). '
+            '4: Training rate Fs = 44.1kHz, oversampling by a factor of L (set through override_L) (Sec. VI-C in paper). ')
 parser.add_argument('-L', type=int, default=-1)
-parser.add_argument('--model_paths', type=str, default='Proteus_Tone_Packs/*.json')
+parser.add_argument('--model_paths', type=str, default='Proteus_Tone_Packs/Selection.json')
 
 if __name__ == '__main__':
     args = parser.parse_args()

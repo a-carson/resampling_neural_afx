@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from glob import glob
-
+from argparse import ArgumentParser
 
 
 ax_dict = {
@@ -16,20 +16,23 @@ ylims = [-200, 40]
 
 metrics = ['SNR', 'SNRH', 'SNRA', 'NMR']
 
-exp_no = 3
-if exp_no == 0:
+parser = ArgumentParser()
+parser.add_argument('--exp_no', type=int, default=0)
+args = parser.parse_args()
+
+if args.exp_no == 0:
     exp_dir = 'results/L=160_M=147_20250122_153758'
     custom_order = ['NB-Kaiser', 'NB-Remez', 'HB-IIR+WB-Kaiser', 'HB-IIR+WB-Remez', 'LIDL', 'CIDL', 'naive', 'base']
     relace_idl_with_edl = False
-elif exp_no == 1:
+elif args.exp_no == 1:
     exp_dir = 'results/L=147_M=160_20250122_183322'
     custom_order = ['NB-Kaiser', 'NB-Remez', 'HB-IIR+WB-Kaiser', 'HB-IIR+WB-Remez', 'LIDL', 'CIDL', 'naive', 'base']
     relace_idl_with_edl = True
-elif exp_no == 2:
+elif args.exp_no == 2:
     relace_idl_with_edl = False
     exp_dir = 'results/L=8_M=1_20250122_163755'
     custom_order = ['base', 'FFT', 'C-HB-IIR', 'C-HB-FIR', 'EQ-Linterp + CIC']
-elif exp_no == 3:
+elif args.exp_no == 3:
     relace_idl_with_edl = False
     exp_dir = 'results/L=8_M=1_20250129_152118'
     custom_order = ['base', 'FFT', 'C-HB-IIR', 'C-HB-FIR', 'CIC']
