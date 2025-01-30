@@ -122,7 +122,7 @@ if args.exp_no == 0:
 
     ax[-1].set_xlabel('Frequency [Hz]')
     fig.subplots_adjust(hspace=0.2)
-    plt.savefig(f'./{device_name}_tones_L=160_M=147_single.pdf', bbox_inches='tight')
+    plt.savefig(f'figs/{device_name}_tones_L=160_M=147_single.pdf', bbox_inches='tight')
 
     plt.show()
 elif args.exp_no == 2:
@@ -191,7 +191,8 @@ elif args.exp_no == 2:
 
         ax[i].legend(loc='upper left', prop={'size': 8}, ncol=1)
     fig.subplots_adjust(hspace=0.2)
-    plt.savefig(f'./{device_name}_tones.pdf', bbox_inches='tight')
+
+    plt.savefig(f'figs/{device_name}_tones_M=8.pdf', bbox_inches='tight')
 
     plt.show()
 
