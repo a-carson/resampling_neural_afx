@@ -1,4 +1,4 @@
-### Resampling Filter Design for Multirate Neural Audio Effects Processing
+# Resampling Filter Design for Multirate Neural Audio Effects Processing
 
 
 
