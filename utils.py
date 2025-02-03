@@ -7,17 +7,9 @@ import scipy
 from jax import Array, jit
 import os
 import jax
+from nmr import calc_nmr
 jax.config.update("jax_enable_x64", True)
 from argparse import Namespace
-
-USE_MATLAB = True
-if USE_MATLAB:
-    import matlab.engine
-    eng = matlab.engine.start_matlab()
-    MATLAB_PATH = f'{os.path.dirname(__file__)}/dafx24/metrics'
-    eng.cd(MATLAB_PATH, nargout=0)
-else:
-    warnings.warn('MATLAB path not set, skipping NMR calculation')
 
 def wavread_float32(filename):
     sample_rate, audio = scipy.io.wavfile.read(filename)
@@ -257,24 +249,6 @@ def lagrange_interp_kernel(order: int, delta: float, pad: int = 0):
         kernel = np.pad(kernel, (0, pad))
     return kernel
 
-def l_inf_optimal_kernel(order: int, delta: float, bw: float = 0.5) -> jax.Array:
-    '''
-    Fractional delay filter coefficients from LUT (minimax method)
-
-    :param order: order of interpolation (0 to 10)
-    :param delta: fractional delay  (48/44.1 - 1 OR 44.1/48 - 1)
-    :param bw: bandwidth used for optimisation (0.5 OR 0.9)
-    :return: filter coefficients
-    '''
-    # delta = np.round(delta, 3)
-    # df = pd.read_csv(f'lookup_tables/L_inf_delta={delta}_bw={bw}.csv', header=None)
-    # return df.values[order-1, :order+1]
-
-    x = eng.frac_delay_soco(delta, float(order+1), float(4096), 0.5, True)
-    x = np.stack(x).squeeze()
-    x = x / np.sum(x)
-    return x
-
 
 def get_fir_interp_kernel(order: int, delta: float, method: str):
     '''
@@ -320,13 +294,7 @@ def get_srna_and_nmr(sig, sig_bl, f0, sr):
 
     Y_bl *= gain_adjust
     sig_bl *= gain_adjust
-    if USE_MATLAB:
-        nmr = eng.calc_nmr(np.expand_dims(np.array(sig), 1),
-                           np.expand_dims(np.array(sig_bl), 1),
-                           float(sr), float(64),
-                           nargout=1)
-    else:
-        nmr = 0
+    nmr = calc_nmr(sig, sig_bl, sr)
     snra = snr_dB(sig=np.abs(Y_bl),
                         noise=np.abs(Y - Y_bl))
 

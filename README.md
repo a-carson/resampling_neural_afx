@@ -9,12 +9,7 @@ Create conda environment:
 conda env create -f conda_env.yaml
 conda activate resampling_neural_afx
 ```
-NB this will attempt to install `matlabengine` which will only work if you have a MATLAB installed (with a license) on your machine. You may need to adjust the version to match your MATLAB installation. To disable MATLAB, set `USE_MATLAB=False` in `utils.py`.
 
-If `USE_MATLAB=True` (default), you will need to clone this repo for calculating the Noise to Mask ratio: https://github.com/victorzheleznov/dafx24
-```angular2html
-git clone git@github.com:victorzheleznov/dafx24.git 
-```
 
 #### Run experiments
 Run the experiments described in the paper, in the order that they appear:

@@ -6,10 +6,10 @@ dependencies:
   - pip
   - pip:
       - flax==0.10.2
-      - matlabengine==24.2.1
       - matplotlib==3.9.0
       - pandas==2.2.2
       - pip-chill==1.0.3
+      - rocket-fft==0.2.5
 
 
 
